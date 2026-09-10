@@ -21,6 +21,6 @@ public class Main {
 
         System.out.println("\n--- Test Retour ---");
         doc1.rendre();
-        doc1.afficher();
+        doc1.afficher(); //oui
     }
 }
