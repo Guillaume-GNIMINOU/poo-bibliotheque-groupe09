@@ -1,5 +1,5 @@
 public interface Empruntable {
-        void emprunter();
-        void rendre();
+        void emprunter ();
+        void rendre ();
     }
 
