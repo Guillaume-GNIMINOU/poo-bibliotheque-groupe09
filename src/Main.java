@@ -1,31 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
-//Vérification
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== 1. CRÉATION ET AFFICHAGE DES ADHÉRENTS ===");
+        System.out.println("=== 1. CRÉATION DES ADHÉRENTS ET DES DOCUMENTS ===");
         Adherent adh1 = new Adherent(101, "Alice", "alice@mail.com");
         Adherent adh2 = new Adherent(102, "Bob", "bob@mail.com");
 
-        adh1.afficher();
-        adh2.afficher();
         System.out.println(adh1);
         System.out.println(adh2);
 
-        System.out.println("\n=== 2. CRÉATION ET MANIPULATION DU CATALOGUE (POLYMORPHISME) ===");
+        // Instanciation via le type parent/abstrait Document
         Document doc1 = new Livre(1, "Le Petit Prince", "Antoine de Saint-Exupéry", 96);
         Document doc2 = new Periodique(2, "Science & Vie", "Collectif", 1050);
 
-        System.out.println("\nEssai Livre :");
-        doc1.afficher();
+        System.out.println("\n--- Affichage des documents ---");
         System.out.println(doc1);
-
-        System.out.println("\nEssai Périodique :");
-        doc2.afficher();
         System.out.println(doc2);
 
-        System.out.println("\n--- Parcours Polymorphe du Catalogue ---");
-        List<Document> catalogue = new ArrayList<>();
+        System.out.println("\n=== 2. PARCOURS POLYMORPHE DU CATALOGUE ===");
+        // Noms pleinement qualifiés (java.util.List et java.util.ArrayList)
+        java.util.List<Document> catalogue = new java.util.ArrayList<>();
         catalogue.add(doc1);
         catalogue.add(doc2);
 
@@ -34,16 +26,21 @@ public class Main {
             System.out.println("Durée max prêt : " + doc.dureeMaxPret() + " jours");
         }
 
-        System.out.println("\n=== 3. VÉRIFICATION DES RÈGLES D'EMPRUNT / RETOUR ===");
-        System.out.println("Emprunt initial :");
-        doc1.emprunter();
-        doc1.afficher();
+        System.out.println("\n=== 3. TESTS EMPRUNT, REFUS ET RETOUR ===");
 
-        System.out.println("\nTentative de ré-emprunt (Doit afficher une erreur) :");
+        // Test 1 : Emprunt initial (Succès)
+        System.out.println("\n--- Test Emprunt ---");
         doc1.emprunter();
+        System.out.println(doc1);
 
-        System.out.println("\nRetour du document :");
+        // Test 2 : Tentative de ré-emprunt (Refus / Impossibilité)
+        System.out.println("\n--- Test Emprunt Impossible (Refus) ---");
+        doc1.emprunter(); // Doit afficher un message d'erreur/refus
+        System.out.println(doc1);
+
+        // Test 3 : Retour du document (Succès)
+        System.out.println("\n--- Test Retour ---");
         doc1.rendre();
-        doc1.afficher();
+        System.out.println(doc1);
     }
 }
