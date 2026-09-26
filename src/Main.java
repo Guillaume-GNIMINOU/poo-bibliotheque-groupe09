@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-
+//Vérification
 public class Main {
     public static void main(String[] args) {
         System.out.println("=== 1. CRÉATION ET AFFICHAGE DES ADHÉRENTS ===");
