@@ -1,71 +1,46 @@
-<<<<<<< HEAD
 public class Main {
     public static void main(String[] args) {
-        // 1. Création des objets
-        Document doc1 = new Document(1, "Le Petit Prince", "Saint-Exupéry");
-        Document doc2 = new Document(2, "L'Étranger", "Camus");
-
-        Adherent adh1 = new Adherent(101, "Alice", "alice@mail.com");
-        Adherent adh2 = new Adherent(102, "Bob", "bob@mail.com");
-
-        // 2. Affichage initial
-        adh1.afficher();
-        doc1.afficher();
-
-        // 3. Test Emprunt et Retour
-        System.out.println("\n--- Test Emprunt ---");
-        doc1.emprunter();
-        doc1.afficher();
-
-        System.out.println("\n--- Test Emprunt Impossibe ---");
-        doc1.emprunter(); // Doit afficher l'erreur
-
-        System.out.println("\n--- Test Retour ---");
-        doc1.rendre();
-        doc1.afficher();
-=======
-import java.util.ArrayList;
-import java.util.List;
-
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("1. CRÉATION DES ADHÉRENTS");
+        System.out.println("=== 1. CRÉATION DES ADHÉRENTS ET DES DOCUMENTS ===");
         Adherent adh1 = new Adherent(101, "Alice", "alice@mail.com");
         Adherent adh2 = new Adherent(102, "Bob", "bob@mail.com");
 
         System.out.println(adh1);
         System.out.println(adh2);
-        System.out.println("2. CRÉATION ET MANIPULATION (TYPE PARENT)");
+
+        // Instanciation via le type parent/abstrait Document
         Document doc1 = new Livre(1, "Le Petit Prince", "Antoine de Saint-Exupéry", 96);
         Document doc2 = new Periodique(2, "Science & Vie", "Collectif", 1050);
 
-
-
-        System.out.println("\nEssai Livre");
+        System.out.println("\n--- Affichage des documents ---");
         System.out.println(doc1);
-        System.out.println("\nEssai Périodique");
         System.out.println(doc2);
-        System.out.println("\nParcours Polymorphe du Catalogue");
-        List<Document> catalogue = new ArrayList<>();
 
+        System.out.println("\n=== 2. PARCOURS POLYMORPHE DU CATALOGUE ===");
+        // Noms pleinement qualifiés (java.util.List et java.util.ArrayList)
+        java.util.List<Document> catalogue = new java.util.ArrayList<>();
         catalogue.add(doc1);
         catalogue.add(doc2);
 
         for (Document doc : catalogue) {
-            System.out.println("Titre:" + doc.getTitre());
-            System.out.println("Durée max prêt:" + doc.dureeMaxPret() + "jours");
+            System.out.println("Titre : " + doc.getTitre());
+            System.out.println("Durée max prêt : " + doc.dureeMaxPret() + " jours");
         }
 
-        System.out.println("3. VÉRIFICATION DES RÈGLES D'EMPRUNT _ RETOUR");
-        System.out.println("Emprunt initial :");
+        System.out.println("\n=== 3. TESTS EMPRUNT, REFUS ET RETOUR ===");
+
+        // Test 1 : Emprunt initial (Succès)
+        System.out.println("\n--- Test Emprunt ---");
         doc1.emprunter();
         System.out.println(doc1);
 
-        System.out.println("\nTentative de ré-emprunt :");
-        doc1.emprunter();
-        System.out.println("\nRetour du document :");
+        // Test 2 : Tentative de ré-emprunt (Refus / Impossibilité)
+        System.out.println("\n--- Test Emprunt Impossible (Refus) ---");
+        doc1.emprunter(); // Doit afficher un message d'erreur/refus
+        System.out.println(doc1);
+
+        // Test 3 : Retour du document (Succès)
+        System.out.println("\n--- Test Retour ---");
         doc1.rendre();
         System.out.println(doc1);
->>>>>>> master
     }
 }
