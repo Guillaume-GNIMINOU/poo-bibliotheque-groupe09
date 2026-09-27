@@ -1,12 +1,12 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("INITIALISATION DU SYSTEME DE GESTION DE BIBLIOTHEQUE");
+        System.out.println("INITIALISONS   LE SYSTEME  DE GESTION DE LA BIBLIOTHEQUE");
 
         // 1. Création des adhérents
         Adherent adherent1 = new Adherent(101, "KONE Eliezer", "eliezer@email.com");
         Adherent adherent2 = new Adherent(102, "KIENOU Franck", "franck@email.com");
 
-        System.out.println("\n LISTE DES ADHERENTS");
+        System.out.println("\n VOICI LA LISTE DES ADHERENTS");
         adherent1.afficher();
         adherent2.afficher();
 
@@ -15,7 +15,7 @@ public class Main {
         Document doc2 = new Periodique(2, "Jeune Afrique", 1540);
         Document doc3 = new Livre(3, "Les Soleils des Indépendances", "Ahmadou Kourouma", 200);
 
-        System.out.println("\n LE CATALOGUE DES DOCUMENTS (Affichage Polymorphe)");
+        System.out.println("\n L'AFFICHAGE DES DOCUMENTS ");
         doc1.afficher();
         System.out.println("Statut: " + (doc1.estDisponible() ? "Disponible" : "Indisponible"));
 
@@ -25,7 +25,7 @@ public class Main {
         doc3.afficher();
         System.out.println("Statut: " + (doc3.estDisponible() ? "Disponible" : "Indisponible"));
 
-        System.out.println("\n EXECUTION DES SCENARIOS DE TEST (Emprunt / Refus / Retour)");
+        System.out.println("\n L'EXECUTION DES SCENARIOS DE TEST (Emprunt / Refus / Retour)");
 
         // Récupération de l'objet Livre
         Livre livre1 = (Livre) doc1;
@@ -46,6 +46,7 @@ public class Main {
         System.out.println("\nTest 4: Tentative de retour d'un livre déjà disponible");
         livre1.rendre();
 
-        System.out.println("\nFIN DE L'EXECUTION DE LA DEMONSTRATION");
+        System.out.println("\nFIN DE L'EXECUTION DE LA DEMONSTRATION , MERCI  \n GNIMINOU Guillaume Junior Sié Mahora\n" +
+                "KIENOU Bézo Franck Darel Salomon \n , KONE Eliezer");
     }
 }
