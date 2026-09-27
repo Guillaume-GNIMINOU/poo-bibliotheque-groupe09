@@ -11,16 +11,16 @@ public abstract class Document {
     }
     //Accesseurs
     public int getNumero(){
-        return numero;
+        return numero
     }
     public String getTitre(){
-        return titre;
+        return titre
     }
     public boolean estDisponible(){
         return disponible;
     }
     protected void changerDisponibilite(boolean disponible){
-        this.disponible=disponible;
+        this.disponible=disponible
     }
     // Chaque type a sa durée maximale de prêt
     public abstract int dureeMaxPret();
