@@ -1,8 +1,8 @@
 public class Adherent {
     //Attributs
-    public int numero;
-    public String nom;
-    public String email;
+    private int numero;
+    private String nom;
+    private String email;
     //Constructeurs
     public Adherent(int numero, String nom, String email) {
         this.numero = numero;
