@@ -22,6 +22,10 @@ public abstract class Document {
     protected void changerDisponibilite(boolean disponible){
         this.disponible=disponible
     }
+    Affichage
+    public void afficher(){
+        System.out.println("Document n°"+ numero + ":" + titre );
+    }
     // Chaque type a sa durée maximale de prêt
     public abstract int dureeMaxPret();
     // Chaque type doit fournir sa propre description
