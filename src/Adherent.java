@@ -23,7 +23,7 @@ public class Adherent {
     public String getEmail() {
         return email;
     }
-    //Description
+    // La description
     @Override
     public String toString() {
         return "Adhérent n°" + numero + "Nom : " + nom + "Email : " + email;
