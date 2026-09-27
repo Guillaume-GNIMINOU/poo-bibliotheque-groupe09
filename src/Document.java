@@ -1,38 +1,31 @@
 public abstract class Document {
-    //Attributs
     private int numero;
     private String titre;
     private boolean disponible;
-    //Constructeurs
+
     public Document(int numero, String titre) {
         this.numero = numero;
         this.titre = titre;
-        this.disponible = true; // Disponible au début
+        this.disponible = true;
     }
-    //Accesseurs
-    public int getNumero(){
-        return numero
+
+    public int getNumero() { return numero; }
+    public String getTitre() { return titre; }
+    public boolean estDisponible() { return disponible; }
+
+    protected void changerDisponibilite(boolean disponible) {
+        this.disponible = disponible;
     }
-    public String getTitre(){
-        return titre
+
+    public void afficher() {
+        System.out.println("Document n°" + numero + " : " + titre);
     }
-    public boolean estDisponible(){
-        return disponible;
-    }
-    protected void changerDisponibilite(boolean disponible){
-        this.disponible=disponible
-    }
-    Affichage
-    public void afficher(){
-        System.out.println("Document n°"+ numero + ":" + titre );
-    }
-    // Chaque type a sa durée maximale de prêt
+
     public abstract int dureeMaxPret();
-    // Chaque type doit fournir sa propre description
     public abstract String description();
+
     @Override
     public String toString() {
-        return description()+"-"+(disponible?"disponible":"indisponible");
+        return description() + " - " + (disponible ? "disponible" : "indisponible");
     }
 }
-
