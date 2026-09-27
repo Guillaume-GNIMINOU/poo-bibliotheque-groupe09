@@ -1,46 +1,51 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== 1. CRÉATION DES ADHÉRENTS ET DES DOCUMENTS ===");
-        Adherent adh1 = new Adherent(101, "Alice", "alice@mail.com");
-        Adherent adh2 = new Adherent(102, "Bob", "bob@mail.com");
+        System.out.println("INITIALISONS LE SYSTEME DE GESTION DE LA BIBLIOTHEQUE");
 
-        System.out.println(adh1);
-        System.out.println(adh2);
+        //1. Création des adhérents
+        Adherent adherent1 = new Adherent(101, "KONE Eliezer", "eliezer@email.com");
+        Adherent adherent2 = new Adherent(102, "KIENOU Franck", "franck@email.com");
 
-        // Instanciation via le type parent/abstrait Document
-        Document doc1 = new Livre(1, "Le Petit Prince", "Antoine de Saint-Exupéry", 96);
-        Document doc2 = new Periodique(2, "Science & Vie", "Collectif", 1050);
+        System.out.println("\n VOICI LA LISTE DES ADHERENTS");
+        adherent1.afficher();
+        adherent2.afficher();
 
-        System.out.println("\n--- Affichage des documents ---");
-        System.out.println(doc1);
-        System.out.println(doc2);
+        //2. Démonstration du POLYMORPHISME.
+        Document doc1 = new Livre(1, "L'Enfant Noir", "Camara Laye", 220);
+        Document doc2 = new Periodique(2, "Jeune Afrique", 1540);
+        Document doc3 = new Livre(3, "Les Soleils des Indépendances", "Ahmadou Kourouma", 200);
 
-        System.out.println("\n=== 2. PARCOURS POLYMORPHE DU CATALOGUE ===");
-        // Noms pleinement qualifiés (java.util.List et java.util.ArrayList)
-        java.util.List<Document> catalogue = new java.util.ArrayList<>();
-        catalogue.add(doc1);
-        catalogue.add(doc2);
+        System.out.println("\n L'AFFICHAGE DES DOCUMENTS");
+        doc1.afficher();
+        System.out.println("Statut: " + (doc1.estDisponible() ? "Disponible": "Indisponible"));
 
-        for (Document doc : catalogue) {
-            System.out.println("Titre : " + doc.getTitre());
-            System.out.println("Durée max prêt : " + doc.dureeMaxPret() + " jours");
-        }
+        doc2.afficher();
+        System.out.println("Statut: " + (doc2.estDisponible() ? "Disponible" : "Indisponible"));
 
-        System.out.println("\n=== 3. TESTS EMPRUNT, REFUS ET RETOUR ===");
+        doc3.afficher();
+        System.out.println("Statut: " + (doc3.estDisponible() ? "Disponible" : "Indisponible"));
 
-        // Test 1 : Emprunt initial (Succès)
-        System.out.println("\n--- Test Emprunt ---");
-        doc1.emprunter();
-        System.out.println(doc1);
+        System.out.println("\n L'EXECUTION DES SCENARIOS DE TEST (Emprunt / Refus / Retour)");
 
-        // Test 2 : Tentative de ré-emprunt (Refus / Impossibilité)
-        System.out.println("\n--- Test Emprunt Impossible (Refus) ---");
-        doc1.emprunter(); // Doit afficher un message d'erreur/refus
-        System.out.println(doc1);
+        //Récupération de l'objet Livre
+        Livre livre1 = (Livre) doc1;
 
-        // Test 3 : Retour du document (Succès)
-        System.out.println("\n--- Test Retour ---");
-        doc1.rendre();
-        System.out.println(doc1);
+        //SCÉNARIO 1: Cas ordinaire (Emprunt réussi)
+        System.out.println("\nTest 1: Emprunt ordinaire par " + adherent1.getNom() + ");
+                livre1.emprunter();
+
+        //SCÉNARIO 2 : Cas limite (Refus d'emprunt - Livre déjà indisponible)
+        System.out.println("\nTest 2: Tentative d'emprunt du même livre par " + adherent2.getNom() + ");
+                livre1.emprunter();
+
+        //SCÉNARIO 3 : Cas ordinaire (Retour réussi)
+        System.out.println("\nTest 3 : Retour ordinaire du livre");
+        livre1.rendre();
+
+        //SCÉNARIO 4 : Cas limite (Refus de retour - Livre déjà disponible)
+        System.out.println("\nTest 4: Tentative de retour d'un livre déjà disponible");
+        livre1.rendre();
+
+        System.out.println("\nFIN DE L'EXECUTION DE LA DEMONSTRATION, MERCI");
     }
 }
