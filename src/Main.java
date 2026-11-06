@@ -2,7 +2,11 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("INITIALISONS   LE SYSTEME  DE GESTION DE LA BIBLIOTHEQUE");
 
-        // 1. Création des adhérents
+        // Création d'Auteurs
+        Auteur auteur1 = new Auteur("Laye", "Camara");
+        Auteur auteur2 = new Auteur("Kourouma", "Ahmadou");
+
+        // Création  adhérents
         Adherent adherent1 = new Adherent(101, "KONE Eliezer", "eliezer@email.com");
         Adherent adherent2 = new Adherent(102, "KIENOU Franck", "franck@email.com");
 
@@ -10,40 +14,46 @@ public class Main {
         adherent1.afficher();
         adherent2.afficher();
 
-        // 2. Démonstration du POLYMORPHISME (Catalogue sans boucle)
-        Document doc1 = new Livre(1, "L'Enfant Noir", "Camara Laye", 220);
+        // Démonstratons le polymorphisme
+        Document doc1 = new Livre(1, "L'Enfant Noir", auteur1, 220);
         Document doc2 = new Periodique(2, "Jeune Afrique", 1540);
-        Document doc3 = new Livre(3, "Les Soleils des Indépendances", "Ahmadou Kourouma", 200);
+        Document doc3 = new Livre(3, "Les Soleils des Indépendances", auteur2, 200);
 
-        System.out.println("\n L'AFFICHAGE DES DOCUMENTS ");
+        System.out.println("\n L'EXECUTION DES HUIT ESSAIS CUMULES");
+
+        // Essai 1 : Affichage d'un livre via une référence Document
+        System.out.println("\nEssai 1: Affichage Document 1 (Livre)");
         doc1.afficher();
-        System.out.println("Statut: " + (doc1.estDisponible() ? "Disponible" : "Indisponible"));
 
+        // Essai 2 : Affichage d'un périodique via une référence Document
+        System.out.println("\nEssai 2: Affichage Document 2 (Périodique)");
         doc2.afficher();
-        System.out.println("Statut: " + (doc2.estDisponible() ? "Disponible" : "Indisponible"));
 
-        doc3.afficher();
-        System.out.println("Statut: " + (doc3.estDisponible() ? "Disponible" : "Indisponible"));
+        // Essai 3 : Appel de la mésdthode dureeMaxPret() sur un Livre via Document
+        System.out.println("\nEsszai 3: Durée max de prêt (Livre via Document)");
+        System.out.println("Durée max : " + doc1.dureeMaxPret() + " jours");
 
-        System.out.println("\n L'EXECUTION DES SCENARIOS DE TEST (Emprunt / Refus / Retour)");
+        // Essai 4 : Appel de la méthode  dureeMaxPret() sur un Périodique via Document
+        System.out.println("\nEssai 4: Durée max de prêt (Périodique via Document)");
+        System.out.println("Durée max : " + doc2.dureeMaxPret() + " jours");
 
-        // Récupération de l'objet Livre
+        // Récupérons l'instance concrète pour les tests d'emprunt
         Livre livre1 = (Livre) doc1;
 
-        // SCÉNARIO 1 : Cas ordinaire (Emprunt réussi)
-        System.out.println("\nTest 1: Emprunt ordinaire par " + adherent1.getNom() );
+        // Essai 5 : Cas ordinaire; Emprunt réussi d'un livre disponible
+        System.out.println("\n ESSAI 5 : Emprunt ordinaire par " + adherent1.getNom());
         livre1.emprunter();
 
-        // SCÉNARIO 2 : Cas limite (Refus d'emprunt - Livre déjà indisponible)
-        System.out.println("\nTest 2: Tentative d'emprunt du même livre par " + adherent2.getNom() );
+        // Essai 6 : Cas limite;  Refus d'emprunt car le livre est déjà indisponible
+        System.out.println("\nEssai 6 : Tentative d'emprunt du même livre par" + adherent2.getNom());
         livre1.emprunter();
 
-        // SCÉNARIO 3 : Cas ordinaire (Retour réussi)
-        System.out.println("\nTest 3 : Retour ordinaire du livre");
+        // Essai 7 : Cas ordinaire ; Retour réussi d'un livre emprunté
+        System.out.println("\n Essai 7: Retour ordinaire du livre");
         livre1.rendre();
 
-        // SCÉNARIO 4 : Cas limite (Refus de retour - Livre déjà disponible)
-        System.out.println("\nTest 4: Tentative de retour d'un livre déjà disponible");
+        // Essai 8 : Cas limite ; Refus de retour car le livre est déjà disponible
+        System.out.println("\nEssai 8: Tentative de retour d'un livre déjà disponible");
         livre1.rendre();
 
         System.out.println("\nFIN DE L'EXECUTION DE LA DEMONSTRATION , MERCI  \n GNIMINOU Guillaume Junior Sié Mahora\n" +
