@@ -1,56 +1,106 @@
+
+import java.util.List;
+
 public class Livre extends Document implements Empruntable {
 
-    // Composition : le livre est associé à un objet de type Auteur
-    private Auteur auteur;
-    private int nombrePages;
+    private final List<Auteur> auteurs;
+    private final int nombrePages;
 
-    // Constructeur
+    // Constructeur compatible avec l'ancienne version : un seul objet Auteur
     public Livre(int numero, String titre, Auteur auteur, int nombrePages) {
-        super(numero, titre); // Initialisons des attributs de la classe parent (Document)
-        this.auteur = auteur;
+        this(numero, titre, List.of(auteur), nombrePages);
+    }
+
+    // Constructeur compatible avec la version utilisant une chaine de caracteres
+    public Livre(int numero, String titre, String auteur, int nombrePages) {
+        this(numero, titre, List.of(new Auteur(auteur)), nombrePages);
+    }
+
+    // Constructeur permettant d'associer plusieurs auteurs
+    public Livre(int numero, String titre, List<Auteur> auteurs, int nombrePages) {
+        super(numero, titre);
+
+        if (nombrePages <= 0) {
+            throw new IllegalArgumentException(
+                    "Le nombre de pages doit etre positif."
+            );
+        }
+
+        if (auteurs == null || auteurs.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Un livre doit avoir au moins un auteur."
+            );
+        }
+
+        if (auteurs.stream().anyMatch(auteur -> auteur == null)) {
+            throw new IllegalArgumentException(
+                    "La liste des auteurs ne peut pas contenir de valeur nulle."
+            );
+        }
+
+        this.auteurs = List.copyOf(auteurs);
         this.nombrePages = nombrePages;
     }
 
-    // Retourne l'objet Auteur du livre
-    public Auteur getAuteur() {
-        return auteur;
+    // Retourne la liste non modifiable des auteurs
+    public List<Auteur> getAuteurs() {
+        return auteurs;
     }
 
-    // Retourne le nombre de pages du livre
+    // Compatibilite avec l'ancienne methode getAuteur()
+    public Auteur getAuteur() {
+        return auteurs.get(0);
+    }
+
     public int getNombrePages() {
         return nombrePages;
     }
 
-    // Implémentation de l'interface Empruntable : action d'emprunter
     @Override
     public void emprunter() {
-        changerDisponibilite(false);
-        System.out.println("Vous avez emprunté le livre : \"" + getTitre() + "\".");
+        if (estDisponible()) {
+            changerDisponibilite(false);
+            System.out.println("Vous avez emprunte le livre : \"" + getTitre() + "\".");
+        } else {
+            System.out.println("Impossible : ce livre est deja emprunte.");
+        }
     }
 
-    // Implémentaton de l'interface Empruntable :
     @Override
     public void rendre() {
-        changerDisponibilite(true);
-        System.out.println("Vous avez retourné le livre : \"" + getTitre() + "\".");
+        if (!estDisponible()) {
+            changerDisponibilite(true);
+            System.out.println("Vous avez retourne le livre : \"" + getTitre() + "\".");
+        } else {
+            System.out.println("Impossible : ce livre est deja disponible.");
+        }
     }
 
-    // Redéfinition de la méthode abstraite : durée de prêt  (21 jours)
     @Override
-    public int dureeMaxPret() {
+    public int dureePret() {
         return 21;
     }
 
-    // Redéfinissons la description textuelle du livre
     @Override
     public String description() {
-        return "Livre:" + getTitre() + "(Auteur: " + auteur + ")";
+        String nomsAuteurs = String.join(
+                ", ",
+                auteurs.stream()
+                        .map(Auteur::getNomComplet)
+                        .toList()
+        );
+
+        return "Livre : " + getTitre()
+                + " (Auteurs : " + nomsAuteurs
+                + ", Pages : " + nombrePages + ")";
     }
 
-    // Redéfinissons l'affichag pour inclure les détails particulier du livre
     @Override
     public void afficher() {
         super.afficher();
-        System.out.println("Type:Livre/Pages:" + nombrePages + "Durée max prêt:" + dureeMaxPret() + "jours");
+        System.out.println(
+                "Type : Livre | Pages : " + nombrePages
+                        + " | Duree maximale de pret : " + dureePret() + " jours"
+        );
     }
 }
