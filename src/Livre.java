@@ -42,12 +42,12 @@ public class Livre extends Document implements Empruntable {
         this.nombrePages = nombrePages;
     }
 
-    // Retourne la liste non modifiable des auteurs
+    //Retourne la liste non modifiable des auteurs
     public List<Auteur> getAuteurs() {
         return auteurs;
     }
 
-    // Compatibilite avec l'ancienne methode getAuteur()
+    //Compatibilite avec l'ancienne methode getAuteur()
     public Auteur getAuteur() {
         return auteurs.get(0);
     }
@@ -56,25 +56,33 @@ public class Livre extends Document implements Empruntable {
         return nombrePages;
     }
 
+
     @Override
-    public void emprunter() {
-        if (estDisponible()) {
-            changerDisponibilite(false);
-            System.out.println("Vous avez emprunte le livre : \"" + getTitre() + "\".");
-        } else {
-            System.out.println("Impossible : ce livre est deja emprunte.");
+    public void emprunter()
+    {
+        if (!estDisponible())
+        {
+            throw new DocumentDejaEmprunteException(
+                    "Ce livre est déjà emprunté."
+            );
         }
+
+        changerDisponibilite(false);
     }
 
     @Override
-    public void rendre() {
-        if (!estDisponible()) {
-            changerDisponibilite(true);
-            System.out.println("Vous avez retourne le livre : \"" + getTitre() + "\".");
-        } else {
-            System.out.println("Impossible : ce livre est deja disponible.");
+    public void rendre()
+    {
+        if (estDisponible())
+        {
+            throw new RetourNonAutoriseException(
+                    "Ce livre est déjà disponible."
+            );
         }
+
+        changerDisponibilite(true);
     }
+
 
     @Override
     public int dureePret() {
